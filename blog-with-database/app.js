@@ -12,12 +12,12 @@ const contactContent = "Scelerisque eleifend donec pretium vulputate sapien. Rho
 
 const app = express();
 
+const port = 3000;
+
 app.set('view engine', 'ejs');
 
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(express.static("public"));
-
-let posts = [];
 
 //create database
 mongoose.connect("mongodb://localhost:27017/blogDB", {useNewUrlParser: true});
@@ -31,18 +31,13 @@ const postSchema = {
 const Post = mongoose.model("Post", postSchema);
 
 app.get("/", function(req, res){
-  res.render("home", {
-    startingContent: homeStartingContent,
-    posts: posts
+  Post.find({}, function(err, posts){
+    res.render("home", {
+      startingContent: homeStartingContent,
+      posts: posts
     });
-});
+  });
 
-app.get("/about", function(req, res){
-  res.render("about", {aboutContent: aboutContent});
-});
-
-app.get("/contact", function(req, res){
-  res.render("contact", {contactContent: contactContent});
 });
 
 app.get("/compose", function(req, res){
@@ -50,10 +45,10 @@ app.get("/compose", function(req, res){
 });
 
 app.post("/compose", function(req, res){
-  const post = {
+  const post = new Post ({
     title: req.body.postTitle,
     content: req.body.postBody
-  };
+  });
 
   posts.push(post);
   post.save();
@@ -77,6 +72,14 @@ app.get("/posts/:postName", function(req, res){
 
 });
 
-app.listen(3000, function() {
-  console.log("Server started on port 3000");
+app.get("/about", function(req, res){
+  res.render("about", {aboutContent: aboutContent});
+});
+
+app.get("/contact", function(req, res){
+  res.render("contact", {contactContent: contactContent});
+});
+
+app.listen(port, function() {
+  console.log(`Server started on port ${port}`);
 });
