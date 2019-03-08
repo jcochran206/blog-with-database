@@ -1,6 +1,6 @@
 # blog-with-database :package:
 ## Description
-created a blog site using NodeJS that utilizes ejs and templating in order to minimize code to format webpages.  Users can add a post and it will show in a summarized format in the home page.  Users can also click on the read more link to bring them to the post page in order to review the entire post.  Updated version to allow for data persistence with local database. 
+created a blog site using NodeJS that utilizes ejs and templating in order to minimize code to format webpages.  Users can add a post and it will show in a summarized format in the home page.  Users can also click on the read more link to bring them to the post page in order to review the entire post.  Updated version to allow for data persistence with local database.
 
 ## Technologies used
 - HTML
@@ -14,6 +14,8 @@ created a blog site using NodeJS that utilizes ejs and templating in order to mi
 - EJS 2.6.1
 - Express 4.16.3
 - Body-parser 1.18.3
+- Mongoose 5.4.17
+- MongoDB
 
 ## Setup
 - cd into directory
